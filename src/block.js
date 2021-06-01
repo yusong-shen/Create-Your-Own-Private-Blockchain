@@ -42,8 +42,10 @@ class Block {
 
             // Recalculate the hash of the Block
             let newHash = SHA256(JSON.stringify(self)).toString();
+            console.log(JSON.stringify(self));
+            console.log(`newHash: ${newHash}`);
             // Comparing if the hashes changed
-            if (newHash != self.hash) {
+            if (newHash !== self.hash) {
                 // Returning the Block is not valid
                 resolve(false);
             } else {

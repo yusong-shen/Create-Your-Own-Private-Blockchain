@@ -72,6 +72,8 @@ class Blockchain {
            block.hash = SHA256(JSON.stringify(block)).toString();
            console.log(JSON.stringify(block));
            self.chain.push(block);
+           let errorLogs = self.validateChain();
+           console.log(errorLogs);
         });
     }
 
@@ -196,7 +198,18 @@ class Blockchain {
         let self = this;
         let errorLog = [];
         return new Promise(async (resolve, reject) => {
-            
+            self.chain.forEach((block, index) => {
+                if (block.validate() !== false) {
+                    errorLog.push(`${JSON.stringify(block)} is tampered.`)
+                }
+                if (index > 0) {
+                    let previousBlock = self.chain[index - 1];
+                    if (block.previousBlockHash != previousBlock.hash) {
+                        errorLog.push(`${JSON.stringify(block)}'s previousBlockHash doesn't match ${previousBlock.hash}`);
+                    }
+                }
+            });
+            resolve(errorLog);
         });
     }
 
