@@ -85,7 +85,10 @@ class Blockchain {
      */
     requestMessageOwnershipVerification(address) {
         return new Promise((resolve) => {
-            
+            let timestamp = new Date().getTime().toString().slice(0,-3);
+            let messageToSign = `${address}:${timestamp}:startRegistry`;
+            console.log(messageToSign);
+            resolve(messageToSign);
         });
     }
 
@@ -109,7 +112,18 @@ class Blockchain {
     submitStar(address, message, signature, star) {
         let self = this;
         return new Promise(async (resolve, reject) => {
-            
+            let messageTime = parseInt(message.split(':')[1]);
+            let currentTime = parseInt(new Date().getTime().toString().slice(0, -3));
+            if (currentTime - messageTime > 5 * 60) {
+                reject(Error("Message must be signed within 5 minutes"));
+            } else {
+                let isValid = bitcoinMessage.verify(message, address, signature);
+                if (isValid) {
+                    resolve(star)
+                } else {
+                    reject(Error("Message must be signed correctly"));
+                }
+            }
         });
     }
 
