@@ -119,7 +119,9 @@ class Blockchain {
             } else {
                 let isValid = bitcoinMessage.verify(message, address, signature);
                 if (isValid) {
-                    resolve(star)
+                    let newBlock = new BlockClass.Block(star);
+                    self._addBlock(newBlock);
+                    resolve(newBlock);
                 } else {
                     reject(Error("Message must be signed correctly"));
                 }
