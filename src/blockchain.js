@@ -199,7 +199,9 @@ class Blockchain {
         let errorLog = [];
         return new Promise(async (resolve, reject) => {
             self.chain.forEach((block, index) => {
-                if (block.validate() !== false) {
+                console.log(`validate block : ${block}`);
+                let isBlockValid = block.validate();
+                if (isBlockValid === false) {
                     errorLog.push(`${JSON.stringify(block)} is tampered.`)
                 }
                 if (index > 0) {
