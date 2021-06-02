@@ -8,10 +8,10 @@ I use [Bitcoin Signature Tool](https://reinproject.org/bitcoin-signature-tool) t
 Use 'POSTMAN' or similar service to test your blockchains endpoints and send screenshots of each call
 - must use a GET call to request the Genesis block
 ![1- GET Genesis Block By Height](./screenshots/1-GET-Genesis-Block-By-Height.png)
-- must use a POST call to requestValidation
 ![2- GET Genesis Block By Hash](./screenshots/2-_GET_Genesis_Block_By_Hash.png)
-- must sign message with your wallet
+- must use a POST call to requestValidation
 ![3- POST Request Validation](./screenshots/3-_POST_Request_Validation.png)
+- must sign message with your wallet
 ![4- Use BTC Wallet Address To Sign Message](./screenshots/4-_Use_BTC_Wallet_Address_To_Sign_Message.png)
 - must submit your Star
 ![5.1- POST Submit Star 1](./screenshots/5.1-_POST_Submit_Star_1.png)
