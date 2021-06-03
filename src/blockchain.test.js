@@ -1,5 +1,5 @@
 const BlockChain = require('./blockchain.js');
-
+const BlockClass = require('./block.js');
 
 test('get genesis block', () => {
     let blockchain = new BlockChain.Blockchain();
@@ -16,4 +16,16 @@ test('get genesis block', () => {
     let blockchain = new BlockChain.Blockchain();
     let errorLog = blockchain.validateChain();
     expect(errorLog).resolves.toEqual([]);
+  });
+
+
+  test('getStarsByWalletAddress should return an array of stars and their owner', () => {
+    let blockchain = new BlockChain.Blockchain();
+    let starData = {dec : '68', ra : '16', story : 'story'};
+    let block = new BlockClass.Block({owner: 'address1001', star: starData});
+    blockchain._addBlock(block)
+    .then(() => blockchain.getStarsByWalletAddress('address1001'))
+    .then(stars => {
+      expect(stars).toEqual({owner: 'address1001', star: starData});
+    });
   });

@@ -121,7 +121,7 @@ class Blockchain {
             } else {
                 let isValid = bitcoinMessage.verify(message, address, signature);
                 if (isValid) {
-                    let data = {"address" : address, "star" : star};
+                    let data = {"owner" : address, "star" : star};
                     let newBlock = new BlockClass.Block(data);
                     self._addBlock(newBlock);
                     resolve(newBlock);
@@ -180,8 +180,8 @@ class Blockchain {
             self.chain.forEach(block => {
                 let body = block.getBData();
                 console.log(body);
-                if (body.address === address) {
-                    stars.push(body.star);
+                if (body.owner === address) {
+                    stars.push({"star" : body.star, "owner" : body.owner});
                 }
             });
             resolve(stars);
